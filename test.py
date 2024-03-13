@@ -3,6 +3,7 @@
 this file is for testing the api
 
 """
+import time
 
 import requests
 from settings import server_address, root_url
@@ -16,8 +17,8 @@ temp: dict = {
 }
 
 
-def get(uid: int) -> None:
-    url: str = f'{server_address}{root_url}/user/{str(uid)}'
+def get(uid: int, key: str) -> None:
+    url: str = f'{server_address}{root_url}/user/{str(uid)}?key={key}'
 
     response = requests.get(url)
     print(response.json())
@@ -37,4 +38,4 @@ def delete(uid: int, password: str) -> None:
     url: str = f'{server_address}{root_url}/user/{str(uid)}'
 
 
-get(2)
+get(2, '1234')

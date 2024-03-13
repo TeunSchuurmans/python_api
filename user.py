@@ -1,5 +1,7 @@
 from flask import make_response, Response, jsonify, request
+from typing import Callable
 from flask_restful import Resource
+from settings import keys
 import json
 
 
@@ -9,9 +11,24 @@ def my_response(body: dict[str, str], status: int) -> Response:
     return response
 
 
+def protected(http_method: Callable[..., Response]) -> Callable[..., Response]:
+    def wrapper(*args, **kwargs) -> Response:
+        key = request.args.get('key')
+        print(key)
+        if key is None:
+            return my_response({'errorMessage': 'Missing required parameter: key'}, 400)
+        elif key not in keys:
+            return my_response({'errorMessage': 'Invalid parameter: key'}, 403)
+        else:
+            return http_method(*args, **kwargs)
+
+    return wrapper
+
+
 class User(Resource):
 
     @staticmethod
+    @protected
     def get(uid: str) -> Response:
         try:
             with open('database/users.json', 'r') as file:
