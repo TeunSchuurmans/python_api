@@ -13,5 +13,19 @@
                 "creation_date": "12/03/2024"
             }
         }
+    },
+    "2": {
+        "first_name": "Sophie",
+        "last_name": "Johnson",
+        "email": "sophie.johnson@example.com",
+        "password": "p@ssw0rd",
+        "projects": {}
+    },
+    "3": {
+        "first_name": "Sophie",
+        "last_name": "Johnson",
+        "email": "sophie.johnson@example.com",
+        "password": "p@ssw0rd",
+        "projects": {}
     }
 }

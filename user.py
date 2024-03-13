@@ -20,29 +20,27 @@ class User(Resource):
 
     @staticmethod
     def post() -> Response:
-        user_data = request.form
+        input_data = request.form
 
         with open('database/users.json', 'r') as file:
             users: dict = json.load(file)
 
-        try:
-            user_info = {
-                "first_name": user_data.get("first_name"),
-                "last_name": user_data.get("last_name"),
-                "email": user_data.get("email"),
-                "password": user_data.get("password"),
-                "projects": user_data.get("projects", {})
-            }
+        user_data = {
+            "first_name": input_data.get("first_name"),
+            "last_name": input_data.get("last_name"),
+            "email": input_data.get("email"),
+            "password": input_data.get("password"),
+            "projects": input_data.get("projects", {})
+        }
 
-            response = make_response('', 200)
-        except KeyError:
-            response = make_response('', 400)
-            return response
+        for field in user_data:
+            if field is None:
+                return make_response('', 400)
 
         user_id = str(len(users) + 1)
-        users[user_id] = user_info
+        users[user_id] = user_data
 
         with open('database/users.json', 'w') as file:
             json.dump(users, file, indent=4)
 
-        return response
+        return make_response('', 200)
