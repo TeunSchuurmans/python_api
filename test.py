@@ -20,16 +20,13 @@ def get(uid: int) -> None:
     url: str = f'{server_address}{root_url}/user/{str(uid)}'
 
     response = requests.get(url)
-    if response.status_code == 200:
-        print(response.json())
-    else:
-        print(response)
+    print(response.json())
 
 
 def post(input_data: dict) -> None:
     url: str = f'{server_address}{root_url}/user'
     response = requests.post(url, input_data)
-    print(response)
+    print(response.json())
 
 
 def put(uid: int) -> None:
@@ -40,4 +37,4 @@ def delete(uid: int, password: str) -> None:
     url: str = f'{server_address}{root_url}/user/{str(uid)}'
 
 
-post(temp)
+get(2)
