@@ -1,0 +1,17 @@
+{
+    "1": {
+        "first_name": "Teun",
+        "last_name": "Schuurmans",
+        "email": "teunschuurmans06@gmail.com",
+        "password": "test123",
+        "projects": {
+            "1": {
+                "name": "My first project!",
+                "members": {
+                    "1": {}
+                },
+                "creation_date": "12/03/2024"
+            }
+        }
+    }
+}

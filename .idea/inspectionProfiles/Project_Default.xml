@@ -1,0 +1,41 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="DuplicatedCode" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+      <Languages>
+        <language minSize="132" name="Python" />
+      </Languages>
+    </inspection_tool>
+    <inspection_tool class="PyPep8Inspection" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+      <option name="ignoredErrors">
+        <list>
+          <option value="E501" />
+          <option value="W292" />
+        </list>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="PyShadowingBuiltinsInspection" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+      <option name="ignoredNames">
+        <list>
+          <option value="type" />
+          <option value="range" />
+        </list>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="PyUnresolvedReferencesInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredIdentifiers">
+        <list>
+          <option value="car.Car.handle_collision" />
+          <option value="python_car.car.Car.handle_collision" />
+          <option value="pyautogui.screenshot" />
+          <option value="cv2.COLOR_RGB2BGR" />
+          <option value="cv2.cvtColor" />
+          <option value="cv2.VideoWriter.write" />
+          <option value="cv2.VideoWriter.release" />
+          <option value="cv2.VideoWriter_fourcc" />
+          <option value="googleapiclient.discovery" />
+        </list>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>
