@@ -1,28 +1,7 @@
-from flask import make_response, Response, jsonify, request
-from typing import Callable
+from flask import Response, request
 from flask_restful import Resource
-from settings import keys
+from utils import my_response, protected
 import json
-
-
-def my_response(body: dict[str, str], status: int) -> Response:
-    response = make_response(jsonify(body), status)
-    response.headers['Content-Type'] = 'application/json'
-    return response
-
-
-def protected(http_method: Callable[..., Response]) -> Callable[..., Response]:
-    def wrapper(*args, **kwargs) -> Response:
-        key = request.args.get('key')
-        print(key)
-        if key is None:
-            return my_response({'errorMessage': 'Missing required parameter: key'}, 400)
-        elif key not in keys:
-            return my_response({'errorMessage': 'Invalid parameter: key'}, 403)
-        else:
-            return http_method(*args, **kwargs)
-
-    return wrapper
 
 
 class User(Resource):
@@ -42,6 +21,7 @@ class User(Resource):
             return my_response({'errorMessage': 'user not found'}, 404)
 
     @staticmethod
+    @protected
     def post() -> Response:
         input_data = request.form
 
@@ -72,6 +52,7 @@ class User(Resource):
         return my_response({'success': 'user created'}, 200)
 
     @staticmethod
+    @protected
     def put(uid: str) -> Response:
         input_data = request.form
 
@@ -86,5 +67,22 @@ class User(Resource):
             with open('database/users.json', 'w') as file:
                 json.dump(users, file, indent=4)
             return my_response({'success': 'user updated'}, 200)
+        else:
+            return my_response({'errorMessage': 'user not found'}, 404)
+
+    @staticmethod
+    @protected
+    def delete(uid: str) -> Response:
+        try:
+            with open('database/users.json', 'r') as file:
+                users: dict = json.load(file)
+        except (FileNotFoundError, json.JSONDecodeError):
+            return my_response({'errorMessage': 'internal server error'}, 500)
+
+        if uid in users:
+            users.pop(uid)
+            with open('database/users.json', 'w') as file:
+                json.dump(users, file, indent=4)
+            return my_response({'success': f'user {uid} deleted'}, 200)
         else:
             return my_response({'errorMessage': 'user not found'}, 404)

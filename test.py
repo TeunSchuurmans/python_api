@@ -17,25 +17,34 @@ temp: dict = {
 }
 
 
-def get(uid: int, key: str) -> None:
-    url: str = f'{server_address}{root_url}/user/{str(uid)}?key={key}'
+def get(uid: str, key: str) -> None:
+    url: str = f'{server_address}{root_url}/user/{uid}?key={key}'
 
     response = requests.get(url)
     print(response.json())
 
 
-def post(input_data: dict) -> None:
-    url: str = f'{server_address}{root_url}/user'
+def post(input_data: dict, key: str) -> None:
+    url: str = f'{server_address}{root_url}/user?key={key}'
     response = requests.post(url, input_data)
     print(response.json())
 
 
-def put(uid: int) -> None:
-    url: str = f'{server_address}{root_url}/user/{str(uid)}'
+def put(uid: str, key: str) -> None:
+    url: str = f'{server_address}{root_url}/user/{uid}?key={key}'
 
 
-def delete(uid: int, password: str) -> None:
-    url: str = f'{server_address}{root_url}/user/{str(uid)}'
+def delete(uid: str, key: str) -> None:
+    url: str = f'{server_address}{root_url}/user/{uid}?key={key}'
+    response = requests.delete(url)
+    print(response.json())
 
 
-get(2, '1234')
+def generate_api_key() -> None:
+    url: str = f'{server_address}{root_url}/api_key'
+    response = requests.get(url)
+    print(response.json())
+
+
+generate_api_key()
+post(temp, '1234')
